@@ -1,0 +1,155 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Results</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            background-color: #e3f2fd;
+            color: #333;
+        }
+        header {
+            /* background-color: #ff6f61; */
+            background-color: rgb(23, 6, 78) ;
+            color: #fff;
+            padding: 20px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 5px dashed #ffd54f;
+        }
+        .header-title {
+            font-size: 28px;
+            margin-left: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        .navbar {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            align-items: center;
+            padding: 0 20px;
+        }
+        .navbar a {
+            color: #fff;
+            text-decoration: none;
+            padding: 14px 20px;
+            display: block;
+            border: 2px solid transparent;
+            transition: all 0.3s;
+        }
+        .navbar a:hover {
+            /* background-color: #ffd54f; */
+            background-color: #e9c652;
+            border-radius: 5px;
+            color: #333;
+        }
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin: 20px auto;
+            max-width: 800px;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        h2 {
+            /* color: #007bff; */
+            color: #00c43e;
+            margin-top: 30px;
+            margin-bottom: 10px;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            background: #f9f9f9;
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s;
+        }
+        li:hover {
+            transform: scale(1.02);
+        }
+        footer {
+            /* background-color: #ff6f61; */
+            background-color: rgb(23, 6, 78) ;
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+            margin-top: auto;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-title">
+            TEST RESULTS
+        </div>
+        <nav class="navbar">
+            <a href="{% url 'home' %}">Home</a>
+            <a href="{% url 'career_list' %}">Career List</a>
+            <a href="{% url 'dendrogram' %}">Career Visualization</a>
+            {% if user.is_authenticated %}
+                <a href="{% url 'profile' %}">Profile</a>
+                <a href="{% url 'start_test' %}">Back</a>
+                <form action="{% url 'logout' %}" method="post" style="display:inline;">
+                    {% csrf_token %}
+                    <button type="submit" style="background-color: #369f58; color: #fff; border: none; padding: 10px 20px; cursor: pointer; font-size: 16px; font-weight: bold;">Logout</button>
+                </form>
+            {% else %}
+                <a href="{% url 'login' %}">Login</a>
+                <a href="{% url 'register' %}">Register</a>
+            {% endif %}
+        </nav>
+    </header>
+
+    <div class="container">
+        <h1>Your Test Results</h1>
+    
+        <!-- Display user's answers -->
+        <h2>Your Responses:</h2>
+        <ul>
+            {% for question, answer in user_answers.items %}
+                <li><strong>{{ question }}?:</strong> {{ answer }}</li>
+            {% endfor %}
+        </ul>
+    
+        <!-- Display suggested career paths -->
+        <!-- <h2>Suggested Career Paths:</h2> //commented because its just options not paths. -->
+        <h2>Suggested Career Options:</h2>
+        <ul>
+            {% if suggested_career_paths %}
+                {% for path in suggested_career_paths %}
+                    <li>{{ path }}</li>
+                {% endfor %}
+            {% else %}
+                <li>No suggestions based on your responses.</li>
+            {% endif %}
+        </ul>
+        
+        {% if error_message %}
+            <div style="color: red;">{{ error_message }}</div>
+        {% endif %}
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Career Dendrogram (HAPY - CaptainPrince). All rights reserved.</p>
+    </footer>
+</body>
+</html>

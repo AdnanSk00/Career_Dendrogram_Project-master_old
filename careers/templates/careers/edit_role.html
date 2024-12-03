@@ -1,0 +1,119 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Role</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <style>
+        body {
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #e3f2fd;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        header {
+            /* background-color: #ff6f61; */
+            background-color: rgb(23, 6, 78) ;
+            color: #fff;
+            padding: 20px 0;
+            text-align: center;
+            border-bottom: 5px dashed #ffd54f;
+        }
+        main {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            flex: 1;
+        }
+        h1 {
+            margin-top: 0;
+            font-size: 28px;
+            color: #ffffff;
+            text-align: center;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .button-container {
+            margin-top: 20px;
+            text-align: center;
+        }
+        .button-container input[type="submit"] {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+            padding: 10px 15px;
+            font-size: 16px;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+        .button-container input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+        .button-container a {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 16px;
+            color: #fff;
+            /* background-color: #ff6f61; */
+            background-color: rgb(23, 6, 78) ;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 4px;
+            margin-left: 10px;
+        }
+        .button-container a:hover {
+            background-color: #e65c50;
+        }
+        footer {
+            /* background-color: #ff6f61; */
+            background-color: rgb(23, 6, 78) ;
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Edit Role</h1>
+    </header>
+
+    <main>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <div class="button-container">
+                <input type="submit" value="Save Changes">
+                <a href="{% url 'role_list' %}">Back to List</a>
+            </div>
+        </form>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Career Dendrogram (HAPY - CaptainPrince). All rights reserved.</p>
+    </footer>
+</body>
+</html>

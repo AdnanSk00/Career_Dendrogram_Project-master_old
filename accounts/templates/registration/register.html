@@ -1,0 +1,134 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            /* font-family: 'Comic Sans MS', cursive, sans-serif; */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #e3f2fd;
+            color: #333;
+        }
+        header {
+            /* background-color: #ff6f61; */
+            background-color: rgb(23, 6, 78) ;
+            color: #fff;
+            padding: 20px 0;
+            text-align: center;
+            border-bottom: 5px dashed #ffd54f;
+        }
+        .navbar {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        .navbar a {
+            color: #fff;
+            text-decoration: none;
+            padding: 10px 20px;
+            transition: background-color 0.3s;
+        }
+        .navbar a:hover {
+            /* background-color: #ffd54f; */
+            background-color: #e9c652;
+        }
+        .container {
+            flex: 1; /* Take up remaining space */
+            max-width: 500px;
+            margin: 30px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+        h1 {
+            margin-bottom: 20px;
+            /* color: #ff5722; */
+            color: hsl(235, 58%, 51%);
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        form input, form button {
+            margin-bottom: 15px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        form button {
+            /* background-color: #3f51b5; */
+            background-color: #00ab36;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+        form button:hover {
+            /* background-color: #303f9f; */
+            background-color: #1d8658;
+            transform: translateY(-2px);
+        }
+        .links {
+            margin-top: 20px;
+            text-align: center;
+        }
+        .links a {
+            /* color: #007bff; */
+            color: #588b05;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+        .links a:hover {
+            text-decoration: underline;
+        }
+        footer {
+            /* background-color: #ff6f61; */
+            background-color: rgb(23, 6, 78) ;
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+            margin-top: auto; /* Push footer to the bottom */
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <a href="{% url 'home' %}">Home</a>
+            <a href="{% url 'login' %}">Login</a>
+            {% if user.is_authenticated %}
+                <a href="{% url 'profile' %}">Profile</a>
+                <a href="{% url 'logout' %}">Logout</a>
+            {% endif %}
+        </nav>
+    </header>
+
+    <div class="container">
+        <h1>🎉 Register 🎉</h1>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Register</button>
+        </form>
+        <div class="links">
+            <a href="{% url 'login' %}">Already have an account? Log in here.</a>
+            <br>
+            <a href="{% url 'home' %}">Back to Home</a>
+        </div>
+    </div>
+    
+    <footer>
+        <p>&copy; 2024 Career Dendrogram (HAPY - CaptainPrince). All rights reserved.</p>
+    </footer>
+</body>
+</html>
